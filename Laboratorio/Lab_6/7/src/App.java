@@ -7,19 +7,23 @@ public class App {
         do {
             System.out.println(game);
             final char player = game.getCount() % 2 == 0 ? 'X' : 'O';
-            System.out.printf("Player %c insert coordinate: ", player);
-            while(true) {
+            while (true) {
+                System.out.printf("Player %c insert coordinate: ", player);
                 try {
                     String[] s = scanner.nextLine().split(" ");
-                    if (game.setCharInPosition(Integer.parseInt(s[0]),Integer.parseInt( s[1]), player))  {
-                       break;
+                    if (game.setCharInPosition(Integer.parseInt(s[0]), Integer.parseInt(s[1]), player)) {
+                        break;
+                    } else {
+                        throw new Exception("Invalid coordinates");
                     }
                 } catch (Exception e) {
-                    //ignore: empty catch block
+                    System.err.println("Invalid coordinates, please retry");
+                    System.out.println(game);
                 }
             }
-        } while (!game.isWinning('O') && !game.isWinning('X'));
+        } while (!game.isWinning('O') && !game.isWinning('X') && game.getCount() != 9);
         scanner.close();
+        System.out.println("\n============= Game finished =============\n ");
         if (game.isWinning('O')) {
             System.out.println("PLAYER O WON");
         } else if (game.isWinning('X')) {
@@ -27,6 +31,6 @@ public class App {
         } else {
             System.out.println("TIE");
         }
-        //System.out.printf("\nPLAYER %c WON", game.isWinning('O') ? 'O' : 'X');
+        System.out.println(game);
     }
 }

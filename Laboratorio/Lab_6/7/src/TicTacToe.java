@@ -11,8 +11,8 @@ public class TicTacToe {
     }
 
     public boolean setCharInPosition(int row, int column, char c) {
-        if (matrix[row][column] == 0) {
-            matrix[row][column] = Character.toUpperCase(c);
+        if (matrix[--row][--column] == '•') {
+            matrix[row][column] = c;
             counter++;
             return true;
         } else {
@@ -29,20 +29,24 @@ public class TicTacToe {
     }
 
     public boolean isWinning(char c) {
+        int diagonalVerifier1 = 0, diagonalVerifier2 = 0;
         for (int i = 0; i < matrix.length; i++) {
-            int verifyCounter1 = 0, verifyCounter2 = 0, verifyCounter3 = 0;
-            for (int j = 0; j < matrix.length; j++) {
-                if (i == j) {
-                    verifyCounter3++;
-                }
+            int rowVerifier = 0, columnVerifier = 0;
+            for (int j = 0; j < matrix[i].length; j++) {
                 if (matrix[i][j] == c) {
-                    verifyCounter1++;
+                    rowVerifier++;
                 }
                 if (matrix[j][i] == c) {
-                    verifyCounter2++;
+                    columnVerifier++;
+                }
+                if (i == j && matrix[i][j] == c) {
+                    diagonalVerifier1++;
+                }
+                if (i + j == 2 && matrix[i][j] == c) {
+                    diagonalVerifier2++;
                 }
             }
-            if (verifyCounter1 == 3 || verifyCounter2 == 3 || verifyCounter3 == 3) {
+            if (rowVerifier == 3 || columnVerifier == 3 || diagonalVerifier1 == 3 || diagonalVerifier2 == 3) {
                 return true;
             }
         }
@@ -51,7 +55,7 @@ public class TicTacToe {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder("\n");
         for (char[] cs : matrix) {
             stringBuilder.append("| ");
             for (char c : cs) {
