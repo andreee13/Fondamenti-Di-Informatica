@@ -54,7 +54,7 @@ public class App {
             String dna = getDnaSequence(dnaFileName);
             for (Suspect suspect : getSuspects(suspectsFileName)) {
                 if (suspect != null && suspect.checkCompatibility(dna)) {
-                    System.out.printf("Match found with %s", suspect);
+                    System.out.printf("Match found with %s\n", suspect);
                     return;
                 }
             }

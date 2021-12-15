@@ -12,7 +12,7 @@ public class Suspect {
 
     public boolean checkCompatibility(String sequence) {
         int _agat = 0, _aatg = 0, _tatc = 0;
-        for (int i = 0; i < sequence.length(); i++) {
+        for (int i = 0; i < sequence.length() - 3; i++) {
             try {
                 switch (sequence.substring(i, i + 4)) {
                     case "AGAT":
@@ -27,8 +27,8 @@ public class Suspect {
                     default:
                         break;
                 }
-            } catch (Exception e) {
-                // ignore: empty catch block
+            } catch (StringIndexOutOfBoundsException e) {
+                System.out.println("Dna sequence too short");
             }
         }
         return _agat >= agat && _aatg >= aatg && _tatc >= tatc;
